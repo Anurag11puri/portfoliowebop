@@ -58,6 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
         follower.classList.remove('active');
       });
     });
+  }
+
+  // --- 1.5 Mobile Navigation ---
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
   } else {
     cursor.style.display = 'none';
     follower.style.display = 'none';
@@ -156,7 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2));
+
+    // Optimize mobile performance
+    if (window.innerWidth < 768) {
+      renderer.powerPreference = "low-power";
+    }
 
     const objectsGroup = new THREE.Group();
     scene.add(objectsGroup);

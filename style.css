@@ -156,9 +156,23 @@ h1, h2, h3 { font-family: var(--font-heading); }
 .btn-ghost { border: 1px solid rgba(255, 255, 255, 0.2); color: var(--text-primary); padding: 0.8rem 1.8rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: background 0.3s, border-color 0.3s; }
 .btn-ghost:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.4); }
 
-.nav-hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
-.nav-hamburger span { width: 25px; height: 2px; background: var(--text-primary); transition: 0.3s; }
-.mobile-menu { display: none; }
+.nav-hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; position: relative; }
+.nav-hamburger span { width: 25px; height: 2px; background: var(--text-primary); transition: transform 0.3s, opacity 0.3s; }
+.nav-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.active span:nth-child(2) { opacity: 0; }
+.nav-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(3, 1, 10, 0.98);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.4s;
+}
+.mobile-menu.active { opacity: 1; pointer-events: all; }
+.mobile-menu ul { list-style: none; text-align: center; display: flex; flex-direction: column; gap: 2.5rem; }
+.mobile-link { font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-primary); text-decoration: none; font-weight: 800; transition: color 0.3s; }
+.mobile-link:hover { color: var(--accent-cyan); }
 
 /* Hero */
 .hero { height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
@@ -327,8 +341,8 @@ h1, h2, h3 { font-family: var(--font-heading); }
   .skills-categories { justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
   .skill-cat-btn { padding: 0.4rem 1.2rem; font-size: 0.85rem; }
   
-  .project-card, .service-card { padding: 1.5rem; }
-  .contact-info, .contact-form { padding: 1.5rem; border-radius: 20px; }
+  .project-card, .service-card { padding: 1.5rem; backdrop-filter: none; background: rgba(15, 15, 20, 0.8); }
+  .contact-info, .contact-form, .about-card-3d { padding: 1.5rem; border-radius: 20px; backdrop-filter: none; background: rgba(15, 15, 20, 0.8); }
   
   .loader-progress-text { font-size: 2.5rem; }
   .loader-progress-wrap { width: 200px; }
